@@ -34,7 +34,7 @@ const updateValidation = z
         })
         .optional(),
       year: z
-        .string({
+        .number({
           required_error: 'Year is required'
         })
         .optional(),
