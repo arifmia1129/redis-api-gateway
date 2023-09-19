@@ -15,5 +15,10 @@ router.get(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   AcademicSemesterController.getAcademicSemster
 );
+router.get(
+  '/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AcademicSemesterController.getAcademicSemsterById
+);
 
 export const AcademicSemesterRouter = router;
