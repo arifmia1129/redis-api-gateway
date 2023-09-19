@@ -20,11 +20,24 @@ const getAcademicSemesterService = async (req: Request): Promise<IGenericRespons
   });
   return data;
 };
-const getAcademicSemesterByIdService = async (
-  req: Request,
-  id: string
-): Promise<IGenericResponse> => {
-  const { data } = await CoreService.get(`/academic-semester/${id}`, {
+const getAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
+  const { data } = await CoreService.get(`/academic-semester/${req.params.id}`, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return data;
+};
+const updateAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
+  const { data } = await CoreService.patch(`/academic-semester/${req.params.id}`, req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return data;
+};
+const deleteAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
+  const { data } = await CoreService.delete(`/academic-semester/${req.params.id}`, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -35,5 +48,7 @@ const getAcademicSemesterByIdService = async (
 export const AcademicSemesterService = {
   createAcademicSemesterService,
   getAcademicSemesterService,
-  getAcademicSemesterByIdService
+  getAcademicSemesterByIdService,
+  updateAcademicSemesterByIdService,
+  deleteAcademicSemesterByIdService
 };

@@ -22,7 +22,25 @@ const getAcademicSemster = async (req: Request, res: Response, next: NextFunctio
 };
 const getAcademicSemsterById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await AcademicSemesterService.getAcademicSemesterByIdService(req, req.params.id);
+    const result = await AcademicSemesterService.getAcademicSemesterByIdService(req);
+
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+const updateAcademicSemsterById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await AcademicSemesterService.updateAcademicSemesterByIdService(req);
+
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteAcademicSemsterById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await AcademicSemesterService.deleteAcademicSemesterByIdService(req);
 
     sendResponse(res, result);
   } catch (error) {
@@ -33,5 +51,7 @@ const getAcademicSemsterById = async (req: Request, res: Response, next: NextFun
 export const AcademicSemesterController = {
   createAcademicSemster,
   getAcademicSemster,
-  getAcademicSemsterById
+  getAcademicSemsterById,
+  updateAcademicSemsterById,
+  deleteAcademicSemsterById
 };
