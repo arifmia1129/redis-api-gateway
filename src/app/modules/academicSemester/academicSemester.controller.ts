@@ -11,7 +11,17 @@ const createAcademicSemster = async (req: Request, res: Response, next: NextFunc
     next(error);
   }
 };
+const getAcademicSemster = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await AcademicSemesterService.getAcademicSemesterService(req);
+
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const AcademicSemesterController = {
-  createAcademicSemster
+  createAcademicSemster,
+  getAcademicSemster
 };
