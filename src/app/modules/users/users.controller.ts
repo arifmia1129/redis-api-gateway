@@ -1,14 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from './users.service';
+import sendResponse from '../../../shared/response';
+import { IGenericResponse } from '../../../interfaces/common';
 
 const createStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await UserService.createStudentService(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+const createFaculty = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await UserService.createFacultyService(req);
+    sendResponse(res, result);
   } catch (error) {
     next(error);
   }
 };
 
 export const UserController = {
-  createStudent
+  createStudent,
+  createFaculty
 };

@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import { AuthService } from '../../../shared/axios';
+import { CoreService } from '../../../shared/axios';
 import config from '../../../config';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const createAcademicDepartmentService = async (req: Request): Promise<IGenericResponse> => {
-  const { data } = await AuthService.post('/academic-department/create', req.body, {
+  const { data } = await CoreService.post('academic-department/create', req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -12,7 +12,7 @@ const createAcademicDepartmentService = async (req: Request): Promise<IGenericRe
   return data;
 };
 const getAcademicDepartmentService = async (req: Request): Promise<IGenericResponse> => {
-  const { data } = await AuthService.get('/academic-department', {
+  const { data } = await CoreService.get('/academic-department', {
     params: req.query,
     headers: {
       Authorization: req.headers.authorization
@@ -21,7 +21,7 @@ const getAcademicDepartmentService = async (req: Request): Promise<IGenericRespo
   return data;
 };
 const getAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
-  const { data } = await AuthService.get(`/academic-department/${req.params.id}`, {
+  const { data } = await CoreService.get(`/academic-department/${req.params.id}`, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -29,7 +29,7 @@ const getAcademicSemesterByIdService = async (req: Request): Promise<IGenericRes
   return data;
 };
 const updateAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
-  const { data } = await AuthService.patch(`/academic-department/${req.params.id}`, req.body, {
+  const { data } = await CoreService.patch(`/academic-department/${req.params.id}`, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -37,7 +37,7 @@ const updateAcademicSemesterByIdService = async (req: Request): Promise<IGeneric
   return data;
 };
 const deleteAcademicSemesterByIdService = async (req: Request): Promise<IGenericResponse> => {
-  const { data } = await AuthService.delete(`/academic-department/${req.params.id}`, {
+  const { data } = await CoreService.delete(`/academic-department/${req.params.id}`, {
     headers: {
       Authorization: req.headers.authorization
     }
