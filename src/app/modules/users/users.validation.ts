@@ -146,6 +146,7 @@ export const createFacultyValidation = z.object({
 });
 
 export const createAdminValidation = z.object({
+  password: z.string().optional(),
   admin: z.object({
     name: z.object({
       firstName: z.string({

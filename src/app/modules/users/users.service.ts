@@ -114,7 +114,6 @@ const createFacultyService = async (req: Request) => {
       }
     }
   );
-  console.log(academicFacultyData.id);
   // Annotate the type of academicDepartmentData
   const academicDepartmentData = isExistAcademicDepartment.data[0];
 
@@ -131,7 +130,24 @@ const createFacultyService = async (req: Request) => {
   return res;
 };
 
+const createAdminService = async (req: Request) => {
+  const file = req.file as IUploadFile;
+  const uploadedFileInfo: ICloudinaryResponse | undefined =
+    await FileUploadHelper.uploadToCloudinary(file);
+
+  req.body.admin.profileImage = uploadedFileInfo?.secure_url;
+
+  const { data: res } = await AuthService.post('/user/create-admin', req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return res;
+};
+
 export const UserService = {
   createStudentService,
-  createFacultyService
+  createFacultyService,
+  createAdminService
 };

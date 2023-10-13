@@ -1,5 +1,30 @@
 import { Request } from 'express';
-import { AuthService } from '../../../shared/axios';
+import { AuthService, CoreService } from '../../../shared/axios';
+
+const getFacultyService = async (req: Request) => {
+  const { data } = await AuthService.get(`/faculty`, req.body);
+
+  return data;
+};
+
+const getFacultyCourseService = async (req: Request) => {
+  const { data } = await CoreService.get(`/faculty/my-courses`, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return data;
+};
+const getFacultyCourseStudentService = async (req: Request) => {
+  const { data } = await CoreService.get(`/faculty/my-course-student`, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return data;
+};
 
 const updateFacultyService = async (req: Request) => {
   const { id } = req.params;
@@ -10,5 +35,8 @@ const updateFacultyService = async (req: Request) => {
 };
 
 export const FacultyService = {
-  updateFacultyService
+  updateFacultyService,
+  getFacultyService,
+  getFacultyCourseService,
+  getFacultyCourseStudentService
 };

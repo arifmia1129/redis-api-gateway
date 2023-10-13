@@ -10,7 +10,7 @@ const loginUserAuth = async (req: Request, res: Response, next: NextFunction) =>
 
     const { refreshToken, ...other } = result?.data;
 
-    console.log(result);
+    // console.log(result);
 
     // set refresh token to cookie
     const cookieOption = {

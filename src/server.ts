@@ -3,37 +3,33 @@ import app from './app';
 import config from './config';
 import logger from './shared/logger';
 
-
-async function bootstrap() {
+async function startServer() {
   const server: Server = app.listen(config.port, () => {
     logger.info(`Server running on port ${config.port}`);
   });
 
-  const exitHandler = () => {
-    if (server) {
-      server.close(() => {
-        logger.info('Server closed');
-        process.exit(1);
-      });
-    } else {
-      process.exit(1);
-    }
+  // Handle server closing gracefully
+  const closeServer = () => {
+    server.close(() => {
+      logger.info('Server closed');
+      process.exit(0); // Change this to 0 to indicate a successful exit
+    });
   };
 
-  const unexpectedErrorHandler = (error: unknown) => {
+  // Handle unexpected errors
+  const handleUnexpectedError = (error: unknown) => {
     logger.error(error);
-    exitHandler();
+    closeServer();
   };
 
-  process.on('uncaughtException', unexpectedErrorHandler);
-  process.on('unhandledRejection', unexpectedErrorHandler);
+  process.on('uncaughtException', handleUnexpectedError);
+  process.on('unhandledRejection', handleUnexpectedError);
 
+  // Handle SIGTERM signal
   process.on('SIGTERM', () => {
     logger.info('SIGTERM received');
-    if (server) {
-      server.close();
-    }
+    closeServer();
   });
 }
 
-bootstrap();
+startServer();
